@@ -4,6 +4,7 @@ public class Teste2 {
 
 		// ------------Teste das exceções --------------------
 		try {
+			Excursao excursao = new Excursao(0, 0, 0);
 			System.out.println("1--->não ok: construtor");
 		} catch (Exception erro) {
 			System.out.println("1---->ok" + erro.getMessage());
