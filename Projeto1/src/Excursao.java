@@ -8,6 +8,10 @@ class Excursao {
     private int max;
     private List<String> reservas;
 
+    public int getCodigo() {
+        return codigo;
+    }
+    
     // Construtor com código, preço e max
     public Excursao(int codigo, double preco, int max) throws IllegalArgumentException {
         if (codigo <= 0 || preco <= 0 || max <= 0) {
@@ -90,28 +94,30 @@ class Excursao {
     }
 
     public void salvar() {
-        try (PrintWriter writer = new PrintWriter(codigo + ".txt")) {
-            writer.println(preco);
-            writer.println(max);
-            for (String reserva : reservas) {
+        String filePath = "src/" + this.getCodigo() + ".txt";
+        try (PrintWriter writer = new PrintWriter(filePath)) {
+            writer.println(this.preco);
+            writer.println(this.max);
+            for (String reserva : this.reservas) {
                 writer.println(reserva);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Erro ao salvar os dados da excursão: " + e.getMessage());
         }
     }
 
     public void carregar() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(codigo + ".txt"))) {
-            preco = Double.parseDouble(reader.readLine());
-            max = Integer.parseInt(reader.readLine());
-            reservas.clear();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                reservas.add(line);
+        String filePath = "src/" + this.getCodigo() + ".txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            this.preco = Double.parseDouble(reader.readLine());
+            this.max = Integer.parseInt(reader.readLine());
+            this.reservas.clear();
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                this.reservas.add(linha);
             }
-        } catch (IOException | NumberFormatException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar os dados da excursão: " + e.getMessage());
         }
     }
 }
