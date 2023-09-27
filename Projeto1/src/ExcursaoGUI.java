@@ -56,7 +56,18 @@ public class ExcursaoGUI {
         listaReservasArea.setEditable(false);
         panel.add(listaReservasArea);
 
-        JButton calcularTotalButton = new JButton("Calcular Total");
+        JButton calcularTotalButton = new JButton("Calcular Total");  
+        calcularTotalButton.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (excursao != null) {
+            double valorTotal = excursao.calcularValorTotal();
+            JOptionPane.showMessageDialog(null, "Valor total das reservas: R$" + valorTotal);
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhuma excursão para calcular o valor total.");
+        }
+    }
+});
         calcularTotalButton.setBounds(10, 300, 150, 25);
         panel.add(calcularTotalButton);
 
