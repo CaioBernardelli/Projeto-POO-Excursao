@@ -1,4 +1,4 @@
-# Documentação do Sistema de Excursões
+# Sistema de Excursões
 
 ## Visão Geral
 
