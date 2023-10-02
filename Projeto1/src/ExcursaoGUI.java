@@ -56,12 +56,12 @@ public class ExcursaoGUI {
         listaReservasArea.setEditable(false);
         panel.add(listaReservasArea);
 
-        JButton calcularTotalButton = new JButton("Calcular Total");  
-        calcularTotalButton.addActionListener(new ActionListener() {
+        JButton calcularTotalButton = new JButton("Calcular Total");  //Calcular Valor total Excursao
+        calcularTotalButton.addActionListener(new ActionListener() {//ActionListener define o comportamento que ocorre quando o botão é clicado.
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (excursao != null) {
-            double valorTotal = excursao.calcularValorTotal();
+        if (excursao != null) {// Verificar se existe excursao
+            double valorTotal = excursao.calcularValorTotal(); // usando o método calcularValorTotal() do objeto "excursao" , guarda o resultado em uma variável chamada "valorTotal.
             JOptionPane.showMessageDialog(null, "Valor total das reservas: R$" + valorTotal);
         } else {
             JOptionPane.showMessageDialog(null, "Nenhuma excursão para calcular o valor total.");
@@ -84,25 +84,25 @@ public class ExcursaoGUI {
         criarExcursaoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int codigo = Integer.parseInt(JOptionPane.showInputDialog("Digite o código da excursão:"));
-                double preco = Double.parseDouble(JOptionPane.showInputDialog("Digite o preço da excursão:"));
+                int codigo = Integer.parseInt(JOptionPane.showInputDialog("Digite o código da excursão:"));//Integer.parseInt(...): converte a entrada do usuário em um valor inteiro. .
+                double preco = Double.parseDouble(JOptionPane.showInputDialog("Digite o preço da excursão:"));//Double.parseDouble(...): converte a entrada do usuário em um valor de ponto flutuante
                 int max = Integer.parseInt(JOptionPane.showInputDialog("Digite o número máximo de reservas:"));
-                excursao = new Excursao(codigo, preco, max);
+                excursao = new Excursao(codigo, preco, max);//Está criando um novo objeto da classe Excursao
                 JOptionPane.showMessageDialog(null, "Excursão criada com sucesso.");
             }
         });
 
-        recuperarExcursaoButton.addActionListener(new ActionListener() {
+        recuperarExcursaoButton.addActionListener(new ActionListener() {//Recuperar Excursao
             @Override
             public void actionPerformed(ActionEvent e) {
                 int codigo = Integer.parseInt(JOptionPane.showInputDialog("Digite o código da excursão:"));
-                excursao = new Excursao(codigo);
-                excursao.carregar();
+                excursao = new Excursao(codigo);//Cria uma nova instância da classe Excursao com o código fornecido pelo usuário como argumento para o construtor
+                excursao.carregar();//Chama o método carregar() na instância da excursão recém-criada. Isso carrega os dados da excursão a partir de um arquivo
                 JOptionPane.showMessageDialog(null, "Excursão recuperada com sucesso:\n" + excursao.toString());
             }
         });
 
-        criarReservaButton.addActionListener(new ActionListener() {
+        criarReservaButton.addActionListener(new ActionListener() {// Criar Reserva 
             @Override
             public void actionPerformed(ActionEvent e) {
                 String cpf = JOptionPane.showInputDialog("Digite o CPF:");
