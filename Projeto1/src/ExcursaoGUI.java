@@ -107,22 +107,22 @@ public class ExcursaoGUI {
             public void actionPerformed(ActionEvent e) {
                 String cpf = JOptionPane.showInputDialog("Digite o CPF:");
                 String nome = JOptionPane.showInputDialog("Digite o nome:");
-                try {
-                    excursao.criarReserva(cpf, nome);
+                try { // Exceções podem ocorrer se, por exemplo, o número máximo de reservas for atingido ou se o nome já estiver reservado.
+                    excursao.criarReserva(cpf, nome);// Chama o método criarReserva(cpf, nome) e cria a reserva com os dados colocados pelo usuário 
                     JOptionPane.showMessageDialog(null, "Reserva criada com sucesso.");
-                } catch (IllegalArgumentException ex) {
+                } catch (IllegalArgumentException ex) {   // é usado para capturar a exceção que pode ser lançada no bloco try.IllegalArgumentException:  que é lançada quando ocorre um erro durante a criação da reserva.
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });
 
-        cancelarReservaIndividualButton.addActionListener(new ActionListener() {
+        cancelarReservaIndividualButton.addActionListener(new ActionListener() {// Cancelar Reserva Individual
             @Override
             public void actionPerformed(ActionEvent e) {
                 String cpf = JOptionPane.showInputDialog("Digite o CPF:");
                 String nome = JOptionPane.showInputDialog("Digite o nome:");
                 try {
-                    excursao.cancelarReserva(cpf, nome);
+                    excursao.cancelarReserva(cpf, nome); //Chama o método  cancelarReserva(cpf,nome) 
                     JOptionPane.showMessageDialog(null, "Reserva cancelada com sucesso.");
                 } catch (IllegalArgumentException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -130,12 +130,12 @@ public class ExcursaoGUI {
             }
         });
 
-        cancelarReservaGrupoButton.addActionListener(new ActionListener() {
+        cancelarReservaGrupoButton.addActionListener(new ActionListener() { //Cancelar Reserva em Grupo
             @Override
             public void actionPerformed(ActionEvent e) {
                 String cpf = JOptionPane.showInputDialog("Digite o CPF:");
                 try {
-                    excursao.cancelarReserva(cpf);
+                    excursao.cancelarReserva(cpf);   //Chama o método  cancelarReserva(cpf) 
                     JOptionPane.showMessageDialog(null, "Todas as reservas do CPF foram canceladas com sucesso.");
                 } catch (IllegalArgumentException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -147,8 +147,8 @@ public class ExcursaoGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String digitos = JOptionPane.showInputDialog("Digite os dígitos do CPF:");
-                List<String> reservas = excursao.listarReservasPorCpf(digitos);
-                exibirReservas(reservas);
+                List<String> reservas = excursao.listarReservasPorCpf(digitos); //   Chama o método listarReservasPorCpf(digitos).  // A lista de reservas resultante é armazenada na variável reservas.
+                exibirReservas(reservas);    //Chama o método exibirReservas(reservas) para exibir as reservas associadas ao CPF na JTextArea da interface gráfica
             }
         });
 
@@ -156,7 +156,7 @@ public class ExcursaoGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String texto = JOptionPane.showInputDialog("Digite o texto do nome:");
-                List<String> reservas = excursao.listarReservasPorNome(texto);
+                List<String> reservas = excursao.listarReservasPorNome(texto);     //Chama o método listarReservasPorNome(texto).A lista de reservas resultante é armazenada na variável reservas.
                 exibirReservas(reservas);
             }
         });
@@ -164,8 +164,8 @@ public class ExcursaoGUI {
         salvarEmArquivoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (excursao != null) {
-                    excursao.salvar();
+                if (excursao != null) {  
+                    excursao.salvar();//Se a variável excursao não for nula, chama o método salvar()
                     JOptionPane.showMessageDialog(null, "Dados da excursão salvos em arquivo.");
                 } else {
                     JOptionPane.showMessageDialog(null, "Nenhuma excursão para salvar.");
@@ -177,7 +177,7 @@ public class ExcursaoGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (excursao != null) {
-                    excursao.carregar();
+                    excursao.carregar();//Se a variável excursao não for nula, chama o método carregar()
                     JOptionPane.showMessageDialog(null, "Dados da excursão carregados de arquivo.");
                 } else {
                     JOptionPane.showMessageDialog(null, "Nenhuma excursão para carregar.");
@@ -187,14 +187,14 @@ public class ExcursaoGUI {
     }
 
     private void exibirReservas(List<String> reservas) {
-        StringBuilder reservasStr = new StringBuilder("Reservas:\n");
-        for (String reserva : reservas) {
-            reservasStr.append(reserva).append("\n");
+        StringBuilder reservasStr = new StringBuilder("Reservas:\n");//O método cria um objeto StringBuilder chamado reservasStr para construir a representação final das reservas que serão exibidas na JTextArea.
+        for (String reserva : reservas) {// percorre a lista de reservas usando um loop for-each 
+            reservasStr.append(reserva).append("\n");// adiciona cada reserva (que é uma string) seguida por uma quebra de linha (\n) ao StringBuilder
         }
-        listaReservasArea.setText(reservasStr.toString());
+        listaReservasArea.setText(reservasStr.toString());// O texto construído é definido como o conteúdo da JTextArea listaReservasArea usando o método setText. Isso atualiza a JTextArea com a lista formatada de reservas.
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(ExcursaoGUI::new);
+        SwingUtilities.invokeLater(ExcursaoGUI::new);  // é usado para iniciar a interface gráfica Swing da aplicação.
     }
 }
