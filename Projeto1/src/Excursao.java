@@ -1,9 +1,6 @@
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.*;
+import java.util.*;
 
 // Classe que representa uma excursão
 class Excursao {
