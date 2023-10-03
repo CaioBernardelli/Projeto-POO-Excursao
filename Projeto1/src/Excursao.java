@@ -1,11 +1,14 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 //Classe que representa uma excursão
 class Excursao {
 	private int codigo; // Código da excursão
-	private double preco; // Preço da excursão
+	private  double preco; // Preço da excursão
 	private int max; // Número máximo de reservas
 	private List<String> reservas; // Lista de reservas (formato: "cpf/nome")
 
@@ -25,11 +28,26 @@ class Excursao {
         this.preco = preco;
         this.max = max;
         this.reservas = new ArrayList<>();
+        
+        salvar();
+        
     }
 
     // Construtor com código (usa o preço e max padrão)
     public Excursao(int codigo) throws IllegalArgumentException {
-        this(codigo, 0.0, 0);
+        this.codigo = codigo;
+        this.preco = 0.0; // Ou o valor padrão desejado
+        this.max = 0;    // Ou o valor padrão desejado
+        this.reservas = new ArrayList<>();
+
+        carregar(); // Chama o método carregar após definir o código e antes de criar um novo objeto
+
+        // Se você deseja definir os valores padrão com base no arquivo apenas se o arquivo não existir,
+        // você pode adicionar uma verificação após carregar().
+        if (this.preco == 0.0 && this.max == 0) {
+            this.preco = 0.0; // Valor padrão
+            this.max = 0;    // Valor padrão
+        }
     }
 
     // Método para criar uma reserva
@@ -52,6 +70,9 @@ class Excursao {
         // Adiciona a nova reserva
         String novaReserva = cpf + "/" + nome;
         reservas.add(novaReserva);
+        
+        salvar();
+        
     }
 
 
@@ -108,7 +129,8 @@ class Excursao {
 
     // Método para salvar os dados da excursão em um arquivo
     public void salvar() {
-        String filePath = "src/" + this.getCodigo() + ".txt";
+    	   String directoryPath = Paths.get("excursao_data").toAbsolutePath().toString(); // Diretório onde os arquivos serão salvos
+    	   String filePath = directoryPath + "/" + this.getCodigo() + ".txt";
         try (PrintWriter writer = new PrintWriter(filePath)) {
             writer.println(this.preco);
             writer.println(this.max);
@@ -122,17 +144,30 @@ class Excursao {
 
     // Método para carregar os dados da excursão a partir de um arquivo
     public void carregar() {
-        String filePath = "src/" + this.getCodigo() + ".txt";
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            this.preco = Double.parseDouble(reader.readLine());
-            this.max = Integer.parseInt(reader.readLine());
-            this.reservas.clear();
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                this.reservas.add(linha);
+        // Caminho absoluto para o diretório "excursao_data"
+        String directoryPath = Paths.get("excursao_data").toAbsolutePath().toString();// String directoryPath = "excursao_data"; // Diretório onde os arquivos estão localizados
+        String filePath = directoryPath + "/" + this.getCodigo() + ".txt";
+
+        try {
+            // Verifica se o arquivo existe
+            if (!Files.exists(Paths.get(filePath))) {
+                System.err.println("O arquivo não existe.");
+                return;
             }
-        } catch (IOException e) {
-            System.err.println("Erro ao carregar os dados da excursão: " + e.getMessage());
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                this.preco = Double.parseDouble(reader.readLine());
+                this.max = Integer.parseInt(reader.readLine());
+                this.reservas.clear();
+                String linha;
+                while ((linha = reader.readLine()) != null) {
+                    this.reservas.add(linha);
+                }
+            } catch (IOException e) {
+                System.err.println("Erro ao ler o arquivo: " + e.getMessage());
+            }
+        } catch (InvalidPathException e) {
+            System.err.println("Caminho do arquivo inválido: " + e.getMessage());
         }
     }
 }

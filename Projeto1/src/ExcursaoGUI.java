@@ -89,6 +89,9 @@ public class ExcursaoGUI {
                 int max = Integer.parseInt(JOptionPane.showInputDialog("Digite o número máximo de reservas:"));
                 excursao = new Excursao(codigo, preco, max);//Está criando um novo objeto da classe Excursao
                 JOptionPane.showMessageDialog(null, "Excursão criada com sucesso.");
+                
+                
+                
             }
         });
 
