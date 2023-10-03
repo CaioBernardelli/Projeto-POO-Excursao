@@ -79,7 +79,6 @@ public class ExcursaoGUI {
         carregarDeArquivoButton.setBounds(10, 380, 150, 25);
         panel.add(carregarDeArquivoButton);
 
-        // ... outros códigos dos botões
 
         criarExcursaoButton.addActionListener(new ActionListener() {
             @Override
