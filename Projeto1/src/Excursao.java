@@ -71,8 +71,8 @@ class Excursao {
 
     // Método para cancelar todas as reservas de um CPF
     public void cancelarReserva(String cpf) throws IllegalArgumentException {
-        boolean removed = reservas.removeIf(reserva -> reserva.startsWith(cpf + "/"));
-        if (!removed) {
+        boolean removed = reservas.removeIf(reserva -> reserva.startsWith(cpf + "/")); //Esta linha remove elementos de uma coleção chamada reservas. Ela usa o método removeIf, que recebe um predicado 
+        if (!removed) {                                                               //reserva -> reserva.startsWith(cpf + "/") verifica se cada elemento em reservas começa com o CPF fornecido seguido de uma barra ("/"). Se um elemento corresponder a essa condição, ele é removido e removed é definido como true
             throw new IllegalArgumentException("Não há reservas para esse CPF.");
         }
 
