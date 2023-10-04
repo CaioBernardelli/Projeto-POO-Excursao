@@ -81,9 +81,9 @@ class Excursao {
 
     // Método para listar as reservas por CPF
     public List<String> listarReservasPorCpf(String digitos) {
-        List<String> filteredReservas = new ArrayList<>();
-        for (String reserva : reservas) {
-            String cpf = reserva.split("/")[0];
+        List<String> filteredReservas = new ArrayList<>();//Isso cria uma nova lista vazia chamada filteredReservas que será usada para armazenar as reservas que correspondem ao texto de pesquisa.
+        for (String reserva : reservas) {// Este é um loop que itera por todas as reservas na lista reservas.
+            String cpf = reserva.split("/")[0];//código divide a reserva em duas partes usando a barra ("/") como separador e pega a segunda parte (índice 0), que deve conter o cpf. 
             if (digitos.isEmpty() || cpf.contains(digitos)) {
                 filteredReservas.add(reserva);
             }
@@ -95,8 +95,8 @@ class Excursao {
     public List<String> listarReservasPorNome(String texto) {
         List<String> filteredReservas = new ArrayList<>();
         for (String reserva : reservas) {
-            String nome = reserva.split("/")[1];
-            if (texto.isEmpty() || nome.contains(texto)) {
+            String nome = reserva.split("/")[1];//código divide a reserva em duas partes usando a barra ("/") como separador e pega a segunda parte (índice 1), que deve conter o nome. 
+            if (texto.isEmpty() || nome.contains(texto)) {// código verifica se o texto de pesquisa (texto) está vazio ou se o nome da reserva (obtido na etapa anterior) contém o texto de pesquisa.
                 filteredReservas.add(reserva);
             }
         }
