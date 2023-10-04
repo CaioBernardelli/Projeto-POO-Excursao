@@ -7,7 +7,7 @@ class Excursao {
     private int codigo; // Código da excursão
     private double preco; // Preço da excursão
     private int max; // Número máximo de reservas
-    private List<String> reservas; // Lista de reservas (formato: "cpf/nome")
+    private ArrayList<String> reservas; // Lista de reservas (formato: "cpf/nome")
 
     // Obtém o código da excursão
     public int getCodigo() {
@@ -111,7 +111,7 @@ class Excursao {
     // Método para obter uma representação da excursão em formato de string
     @Override
     public String toString() {
-        return "Código: " + codigo + ", Preço: " + preco + ", Máximo de reservas: " + max + ", Total de reservas: " + reservas.size();
+        return "Codigo: " + codigo + ", Preco: " + preco + ", Maximo de reservas: " + max + ", Total de reservas: " + reservas.size();
     }
 
     // Método para salvar os dados da excursão em um arquivo

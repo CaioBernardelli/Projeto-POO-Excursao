@@ -22,16 +22,22 @@ public class ExcursaoGUI {
     private void placeComponents(JPanel panel) {
         panel.setLayout(null);
 
+        // Adicionando uma JTextArea para listar as reservas
+        listaReservasArea = new JTextArea();
+        listaReservasArea.setBounds(220, 20, 220, 380);
+        listaReservasArea.setEditable(false);
+        panel.add(listaReservasArea);
+        
         JButton criarExcursaoButton = new JButton("Criar Excursão");
-        criarExcursaoButton.setBounds(10, 20, 150, 25);
+        criarExcursaoButton.setBounds(10, 20, 200, 25);
         panel.add(criarExcursaoButton);
 
         JButton recuperarExcursaoButton = new JButton("Recuperar Excursão");
-        recuperarExcursaoButton.setBounds(10, 60, 150, 25);
+        recuperarExcursaoButton.setBounds(10, 60, 200, 25);
         panel.add(recuperarExcursaoButton);
 
         JButton criarReservaButton = new JButton("Criar Reserva");
-        criarReservaButton.setBounds(10, 100, 150, 25);
+        criarReservaButton.setBounds(10, 100, 200, 25);
         panel.add(criarReservaButton);
 
         JButton cancelarReservaIndividualButton = new JButton("Cancelar Reserva Individual");
@@ -43,43 +49,39 @@ public class ExcursaoGUI {
         panel.add(cancelarReservaGrupoButton);
 
         JButton listarPorCpfButton = new JButton("Listar por CPF");
-        listarPorCpfButton.setBounds(10, 220, 150, 25);
+        listarPorCpfButton.setBounds(10, 220, 200, 25);
         panel.add(listarPorCpfButton);
 
         JButton listarPorNomeButton = new JButton("Listar por Nome");
-        listarPorNomeButton.setBounds(10, 260, 150, 25);
+        listarPorNomeButton.setBounds(10, 260, 200, 25);
         panel.add(listarPorNomeButton);
 
-        // Adicionando uma JTextArea para listar as reservas
-        listaReservasArea = new JTextArea();
-        listaReservasArea.setBounds(220, 20, 220, 380);
-        listaReservasArea.setEditable(false);
-        panel.add(listaReservasArea);
-
         JButton calcularTotalButton = new JButton("Calcular Total");  //Calcular Valor total Excursao
-        calcularTotalButton.addActionListener(new ActionListener() {//ActionListener define o comportamento que ocorre quando o botão é clicado.
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (excursao != null) {// Verificar se existe excursao
-            double valorTotal = excursao.calcularValorTotal(); // usando o método calcularValorTotal() do objeto "excursao" , guarda o resultado em uma variável chamada "valorTotal.
-            JOptionPane.showMessageDialog(null, "Valor total das reservas: R$" + valorTotal);
-        } else {
-            JOptionPane.showMessageDialog(null, "Nenhuma excursão para calcular o valor total.");
-        }
-    }
-});
-        calcularTotalButton.setBounds(10, 300, 150, 25);
+        calcularTotalButton.setBounds(10, 300, 200, 25);
         panel.add(calcularTotalButton);
 
         JButton salvarEmArquivoButton = new JButton("Salvar em Arquivo");
-        salvarEmArquivoButton.setBounds(10, 340, 150, 25);
+        salvarEmArquivoButton.setBounds(10, 340, 200, 25);
         panel.add(salvarEmArquivoButton);
 
         JButton carregarDeArquivoButton = new JButton("Carregar de Arquivo");
-        carregarDeArquivoButton.setBounds(10, 380, 150, 25);
+        carregarDeArquivoButton.setBounds(10, 380, 200, 25);
         panel.add(carregarDeArquivoButton);
 
 
+		calcularTotalButton.addActionListener(new ActionListener() {// ActionListener define o comportamento que ocorre quando o botão é clicado.
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (excursao != null) {// Verificar se existe excursao
+					double valorTotal = excursao.calcularValorTotal(); // usando o método calcularValorTotal() do objeto "excursao" , guarda o resultado em uma variável chamada "valorTotal.
+					JOptionPane.showMessageDialog(null, "Valor total das reservas: R$" + valorTotal);
+				} else {
+					JOptionPane.showMessageDialog(null, "Nenhuma excursão para calcular o valor total.");
+				}
+			}
+		});
+        
+        
         criarExcursaoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -88,9 +90,6 @@ public class ExcursaoGUI {
                 int max = Integer.parseInt(JOptionPane.showInputDialog("Digite o número máximo de reservas:"));
                 excursao = new Excursao(codigo, preco, max);//Está criando um novo objeto da classe Excursao
                 JOptionPane.showMessageDialog(null, "Excursão criada com sucesso.");
-                
-                
-                
             }
         });
 
