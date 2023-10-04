@@ -129,7 +129,7 @@ class Excursao {
         }
     }
 
-    // Método para carregar os dados da excursão a partir de um arquivo
+    // Método para carregar os dados da excursão a partir de um arquivo,lê os dados de uma excursão a partir de um arquivo de texto e preenche os campos da classe com esses dados.
     public void carregar() {
         // Caminho absoluto para o diretório "excursao_data"
         String directoryPath = Paths.get("excursao_data").toAbsolutePath().toString();
@@ -142,9 +142,9 @@ class Excursao {
                 return;
             }
 
-            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {// O código abre o arquivo para leitura usando um BufferedReader, que permite ler o arquivo linha por linha.
                 String precoLine = reader.readLine();
-                String maxLine = reader.readLine();
+                String maxLine = reader.readLine();//Essas linhas leem as duas primeiras linhas do arquivo, que devem conter o preço e o número máximo de reservas. Se essas linhas não forem nulas, o código converte essas strings em valores numéricos (um double e um inteiro) e os armazena nas variáveis this.preco e this.max.
 
                 if (precoLine != null && maxLine != null) {
                     this.preco = Double.parseDouble(precoLine);
@@ -155,7 +155,7 @@ class Excursao {
                 this.reservas = new ArrayList<>();
 
                 String linha;
-                while ((linha = reader.readLine()) != null) {
+                while ((linha = reader.readLine()) != null) {//Este loop lê todas as linhas restantes do arquivo e as adiciona à lista reservas. Cada linha no arquivo representa uma reserva no formato "cpf/nome".
                     this.reservas.add(linha);
                 }
             } catch (IOException e) {
