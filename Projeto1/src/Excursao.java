@@ -118,7 +118,7 @@ class Excursao {
     public void salvar() {
         criarDiretorioSeNaoExiste();
 
-        try (PrintWriter writer = new PrintWriter(getFilePath())) {
+        try (PrintWriter writer = new PrintWriter(getFilePath())) {//Ele abre um arquivo para escrita usando PrintWriter e garante que o arquivo seja fechado automaticamente após o bloco try ser concluído. getFilePath() retorna o caminho do arquivo onde os dados da excursão serão salvos.
             writer.println(this.preco);
             writer.println(this.max);
             for (String reserva : this.reservas) {
